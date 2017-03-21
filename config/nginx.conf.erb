@@ -43,11 +43,18 @@ http {
 			proxy_redirect off;
 
 			proxy_pass http://localhost:<%= ENV["EXPRESS_PORT"] %>;
+
+			proxy_ignore_headers X-Accel-Expires Expires Cache-Control;
 			proxy_cache one;
+			proxy_cache_min_uses 1;
+			proxy_cache_valid 200 302 120m;
+			proxy_cache_valid 404 1m;
 			proxy_max_temp_file_size 1M;
 
-			location ~*  \.(jpg|jpeg|png|gif|ico|css|js)$ {
-			   expires 365d;
+			if ($request_uri ~* ".(jpg|jpeg|gif|gz|zip|flv|rar|wmv|avi|css|swf|png|htc|ico|mpeg|mpg|txt|mp3|mov|js)(\?v=[0-9.]+)?$") {
+				expires 30d;
+				access_log off;
+				break;
 			}
 		}
 	}

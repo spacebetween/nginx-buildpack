@@ -28,10 +28,21 @@ http {
 		server unix:/tmp/nginx.socket fail_timeout=0;
  	}
 
+	# Expires map
+	map $sent_http_content_type $expires {
+	    default                    off;
+	    text/html                  epoch;
+	    text/css                   max;
+	    application/javascript     max;
+	    ~image/                    max;
+	}
+
 	server {
 		listen <%= ENV["PORT"] %>;
 		server_name _;
 		keepalive_timeout 5;
+
+		expires $expires;
 
 		location / {
 			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;

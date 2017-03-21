@@ -45,10 +45,10 @@ http {
 			proxy_pass http://localhost:<%= ENV["EXPRESS_PORT"] %>;
 			proxy_cache one;
 			proxy_max_temp_file_size 1M;
-		}
-		
-		location ~*  \.(jpg|jpeg|png|gif|ico|css|js)$ {
-		   expires 365d;
+
+			location ~*  \.(jpg|jpeg|png|gif|ico|css|js)$ {
+			   expires 365d;
+			}
 		}
 	}
 }

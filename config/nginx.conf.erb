@@ -13,7 +13,7 @@ http {
         gzip_comp_level 2;
         gzip_min_length 512;
 
-	proxy_cache_path /data/nginx/cache keys_zone=one:10m;
+	proxy_cache_path /app/cache keys_zone=one:10m;
 
 	log_format l2met 'measure.nginx.service=$request_time request_id=$http_heroku_request_id';
 	access_log logs/nginx/access.log l2met;

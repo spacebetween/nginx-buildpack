@@ -46,5 +46,9 @@ http {
 			proxy_cache one;
 			proxy_max_temp_file_size 1M;
 		}
+		
+		location ~*  \.(jpg|jpeg|png|gif|ico|css|js)$ {
+		   expires 365d;
+		}
 	}
 }
